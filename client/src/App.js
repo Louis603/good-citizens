@@ -2,8 +2,12 @@ import React, { useState, useEffect } from "react";
 import ReactMapGL, { Marker, Popup } from "react-map-gl";
 import 'mapbox-gl/dist/mapbox-gl.css';
 import './App.css';
+import { Route, Routes} from "react-router";
+import NewMarker from "./NewMarker";
 
 function App() {
+  const [lng, setLng] = useState()
+  const [lat, setLat] = useState()
   const [viewport, setViewport] = useState({
     latitude: 40.715553207343646,
     longitude: -73.99283450881435,
@@ -12,6 +16,8 @@ function App() {
     zoom: 8
   });
 
+  // console.log(lng)
+  // console.log(lat)
   const [mapData, setMapData] = useState([])
   const [selectedMark, setSelectedMark] = useState(null)
 
@@ -21,13 +27,16 @@ function App() {
     .then((data) => setMapData(data))
   }, [])
 
+  function newMarker(data){
+    setMapData([...mapData, data])
+  }
 
   return (
     <div>
       <ReactMapGL 
-      onClick={e => {
-        console.log(e.lngLat.lng)
-          console.log(e.lngLat.lat)}}
+      onClick={(e) => {
+        setLng(e.lngLat.lng)
+        setLat(e.lngLat.lat)}}
         {...viewport}
         mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}
         // mapStyle="mapbox://styles/louisy603/cl4ihohvl007w14pf67sjqul1"
@@ -37,6 +46,7 @@ function App() {
         >
           {mapData.map(marks =>(
             <Marker 
+            key={marks.id}
             // longitude={-73.99283450881435} latitude={40.715553207343646} anchor="bottom" 
             longitude={marks.longitude} latitude={marks.latitude}
             >
@@ -75,6 +85,7 @@ function App() {
           // console.log(selectedMark)
           ): null}
       </ReactMapGL>
+      <NewMarker lng={lng} lat={lat} newMarker={newMarker}/>
     </div>
   );
 }
