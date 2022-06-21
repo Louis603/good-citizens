@@ -25,7 +25,9 @@ function App() {
   return (
     <div>
       <ReactMapGL 
-      // onClick={e => {console.log(e)}}
+      onClick={e => {
+        console.log(e.lngLat.lng)
+          console.log(e.lngLat.lat)}}
         {...viewport}
         mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}
         // mapStyle="mapbox://styles/louisy603/cl4ihohvl007w14pf67sjqul1"
@@ -36,7 +38,7 @@ function App() {
           {mapData.map(marks =>(
             <Marker 
             // longitude={-73.99283450881435} latitude={40.715553207343646} anchor="bottom" 
-            longitude={marks.coordinates[0]} latitude={marks.coordinates[1]}
+            longitude={marks.longitude} latitude={marks.latitude}
             >
             <button className="pin"
               onClick={e => {
@@ -58,8 +60,8 @@ function App() {
           <Popup
             // latitude={40.715553207343646}
             // longitude={-73.99283450881435}
-            latitude={selectedMark.coordinates[1]}
-            longitude={selectedMark.coordinates[0]}
+            latitude={selectedMark.latitude}
+            longitude={selectedMark.longitude}
             onClose={() => {
               setSelectedMark(null);
             }}
@@ -67,6 +69,7 @@ function App() {
             <div>
               <h2>{selectedMark.name}</h2>
               <p>{selectedMark.description}</p>
+              <img style={{height: "200px", width: "140px"}} src={selectedMark.image}></img>
             </div>
           </Popup>
           // console.log(selectedMark)

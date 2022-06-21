@@ -4,7 +4,9 @@ class CreateMarkers < ActiveRecord::Migration[7.0]
       t.string :name
       t.string :description
       t.string :image
-      t.string :coordinates, array: true, default: []
+      # t.string :coordinates, array: true, default: []
+      t.string :longitude
+      t.string :latitude
       t.integer :user_id
 
       t.timestamps
