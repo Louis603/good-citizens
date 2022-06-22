@@ -7,6 +7,8 @@ import NewMarker from "./NewMarker";
 import Comments from "./Comments";
 import Home from "./Home";
 import Header from "./Header";
+import Login from "./Login";
+import Signup from "./Signup";
 import { Link } from 'react-router-dom'
 
 function App() {
@@ -26,6 +28,18 @@ function App() {
   const [selectedMark, setSelectedMark] = useState(null)
   const [comments, setComments] = useState(8)
   const [id, setId] = useState()
+  const [user, setUser] = useState(null)
+
+
+  useEffect(() => {
+    fetch("/me")
+    .then((response) => {
+      if (response.ok) {
+        response.json()
+        .then((user) => setUser(user));
+      }
+    });
+  }, []);
 
   useEffect(() => {
     fetch("/markers")
@@ -41,10 +55,17 @@ function App() {
     e.preventDefault()
     setComments(selectedMark.id)
   }
+  
+  function handleLogout(){
+    fetch("/logout", {
+      method: "DELETE",
+    }).then(() => setUser(null));
+  }
 
   return (
     <div>
-      <Header />
+      <Header user={user}/>
+      {user?<><h1>Hello {user.username}</h1>  <button onClick={handleLogout}>Logout</button></>:null}
       <ReactMapGL 
       onClick={(e) => {
         setLng(e.lngLat.lng)
@@ -111,7 +132,13 @@ function App() {
         <NewMarker lng={lng} lat={lat} newMarker={newMarker}/> 
       </Route>
       <Route path="/markers/:id/comments">
-        <Comments comments={comments}/>
+        <Comments user={user}/>
+      </Route>
+      <Route path="/signup">
+        <Signup setUser={setUser} />
+      </Route>
+      <Route path="/login">
+        <Login setUser={setUser}/>
       </Route>
       {/* </Router> */}
     </div>

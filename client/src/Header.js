@@ -1,7 +1,7 @@
 import React from 'react'
 import {NavLink} from 'react-router-dom'
 
-function Header() {
+function Header({user}) {
   return (
     <div>
         <ul>
@@ -10,6 +10,14 @@ function Header() {
         <ul>
             <NavLink to='/new_marker'>Add New</NavLink>
         </ul>
+        {user? (
+          null
+          ):( 
+        <ul>
+            <NavLink to='/login'>Login</NavLink> /
+            <NavLink to='/signup'>Signup</NavLink>
+        </ul> 
+        )}
     </div>
   )
 }
