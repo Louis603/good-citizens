@@ -2,8 +2,12 @@ import React, { useState, useEffect } from "react";
 import ReactMapGL, { Marker, Popup } from "react-map-gl";
 import 'mapbox-gl/dist/mapbox-gl.css';
 import './App.css';
-import { Route, Routes} from "react-router";
+import { Route, Router} from "react-router";
 import NewMarker from "./NewMarker";
+import Comments from "./Comments";
+import Home from "./Home";
+import Header from "./Header";
+import { Link } from 'react-router-dom'
 
 function App() {
   const [lng, setLng] = useState()
@@ -13,13 +17,15 @@ function App() {
     longitude: -73.99283450881435,
     // width: "20vw",
     // height: "20vh",
-    zoom: 8
+    zoom: 10
   });
 
   // console.log(lng)
   // console.log(lat)
   const [mapData, setMapData] = useState([])
   const [selectedMark, setSelectedMark] = useState(null)
+  const [comments, setComments] = useState(8)
+  const [id, setId] = useState()
 
   useEffect(() => {
     fetch("/markers")
@@ -31,8 +37,14 @@ function App() {
     setMapData([...mapData, data])
   }
 
+  function handleCommentClick(e){
+    e.preventDefault()
+    setComments(selectedMark.id)
+  }
+
   return (
     <div>
+      <Header />
       <ReactMapGL 
       onClick={(e) => {
         setLng(e.lngLat.lng)
@@ -47,13 +59,12 @@ function App() {
           {mapData.map(marks =>(
             <Marker 
             key={marks.id}
-            // longitude={-73.99283450881435} latitude={40.715553207343646} anchor="bottom" 
             longitude={marks.longitude} latitude={marks.latitude}
             >
             <button className="pin"
               onClick={e => {
                 e.preventDefault()
-                console.log(marks)
+                setId(marks.id)
                 // setSelectedMark(marks.id)
                 
                 fetch(`/markers/${marks.id}`)
@@ -79,13 +90,30 @@ function App() {
             <div>
               <h2>{selectedMark.name}</h2>
               <p>{selectedMark.description}</p>
+              <Link to={`/markers/${id}/comments`}>
+              <button 
+              // onClick={(e) => handleCommentClick(e)}
+              >
+                See More
+              </button>
+              </Link>
               <img style={{height: "200px", width: "140px"}} src={selectedMark.image}></img>
+              
             </div>
           </Popup>
           // console.log(selectedMark)
           ): null}
       </ReactMapGL>
-      <NewMarker lng={lng} lat={lat} newMarker={newMarker}/>
+      {/* <Router> */}
+      <Route exact path="/"> 
+        <Home /> </Route>
+      <Route path="/new_marker"> 
+        <NewMarker lng={lng} lat={lat} newMarker={newMarker}/> 
+      </Route>
+      <Route path="/markers/:id/comments">
+        <Comments comments={comments}/>
+      </Route>
+      {/* </Router> */}
     </div>
   );
 }

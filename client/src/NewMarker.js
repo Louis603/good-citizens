@@ -36,7 +36,9 @@ function NewMarker({lng, lat, newMarker}) {
 
 
   return (
-    <form onSubmit={(e) => handleSubmit(e)}  >
+    <div>
+        <h3>Create a new instance</h3>
+    <form onSubmit={(e) => handleSubmit(e)} >
         <label>Name<input type="text" name="name" value={form.name} onChange={handleChange}/></label>
         <label>Description<input type="text" name="description" value={form.description} onChange={handleChange}/></label>
         <label>Image<input type="text" name="image" value={form.image} onChange={handleChange}/></label>
@@ -44,6 +46,7 @@ function NewMarker({lng, lat, newMarker}) {
         <label>Lat<input type="text" name="latitude" value={lat} onChange={handleChange}/></label>
         <button type="submit" >Submit</button>
     </form>
+    </div>
   )
 }
 
