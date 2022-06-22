@@ -1,6 +1,10 @@
 class MarkersController < ApplicationController
 # rescue_from ActiveRecord::RecordInvalid, with: :invalid
 
+    before_action :authorize
+    skip_before_action :authorize, only: [:index,:show]
+
+
     def index
         markers = Marker.all
         render json: markers, status: :ok
@@ -16,6 +20,12 @@ class MarkersController < ApplicationController
         render json: marker, status: :created
     end
 
+    def destroy
+        marker = Marker.find(params[:id])
+        marker.destroy
+        head :no_content
+    end
+
     private
 
     def marker_params
@@ -24,5 +34,9 @@ class MarkersController < ApplicationController
 
     def invalid
         render json: { error: "Unprocessable entity" }, status: :unprocessable_entity
+    end
+
+    def authorize
+        render json: {error: "Not authorized" }, status: :unauthorized unless session.include? :current_user
     end
 end

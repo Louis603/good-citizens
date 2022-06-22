@@ -42,7 +42,7 @@ function Comments({user}) {
 
     const mapData = data.comments.map(com => {
        return (
-        <p><b>{com.user_id}</b>: {com.comment}</p>
+        <p><b>{com.name}</b>: {com.comment}</p>
        )
     })
     

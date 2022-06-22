@@ -62,6 +62,28 @@ function App() {
     }).then(() => setUser(null));
   }
 
+  function handleDelete(){
+    // deleteId(id)
+    fetch(`/markers/${id}`, {
+      method: "DELETE" })
+      // .then((res) => res.json())
+      .then(data => {//{console.log(data)
+        if(data.ok){
+          // console.log(data)
+          setSelectedMark(null)
+          deleteId(id)
+        }else {
+          console.log("no")
+        }
+      })
+      
+  }
+
+  function deleteId(deletedId){
+    const updatedMap = mapData.filter(map => map.id !== deletedId)
+    setMapData(updatedMap)
+  }
+
   return (
     <div>
       <Header user={user}/>
@@ -112,12 +134,13 @@ function App() {
               <h2>{selectedMark.name}</h2>
               <p>{selectedMark.description}</p>
               <Link to={`/markers/${id}/comments`}>
-              <button 
-              // onClick={(e) => handleCommentClick(e)}
-              >
-                See More
-              </button>
+                <button>See More</button>
               </Link>
+              
+              <button onClick={handleDelete}>
+                Delete
+              </button>
+              
               <img style={{height: "200px", width: "140px"}} src={selectedMark.image}></img>
               
             </div>
@@ -129,7 +152,7 @@ function App() {
       <Route exact path="/"> 
         <Home /> </Route>
       <Route path="/new_marker"> 
-        <NewMarker lng={lng} lat={lat} newMarker={newMarker}/> 
+        <NewMarker lng={lng} lat={lat} newMarker={newMarker} user={user}/> 
       </Route>
       <Route path="/markers/:id/comments">
         <Comments user={user}/>
@@ -140,7 +163,6 @@ function App() {
       <Route path="/login">
         <Login setUser={setUser}/>
       </Route>
-      {/* </Router> */}
     </div>
   );
 }

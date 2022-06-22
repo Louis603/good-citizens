@@ -2,7 +2,8 @@ import React from 'react'
 import { useState, useEffect } from "react";
 
 
-function NewMarker({lng, lat, newMarker}) {
+function NewMarker({lng, lat, newMarker, user}) {
+    // console.log(user.id)
     // const [longitude, setLongitude] = useState()
     const [form, setForm] = useState ({
         name: "",
@@ -10,6 +11,7 @@ function NewMarker({lng, lat, newMarker}) {
         image: "",
         longitude: "",
         latitude: "",
+        // user_id: user.id
     })
 
     // useEffect(() =>{
@@ -24,8 +26,15 @@ function NewMarker({lng, lat, newMarker}) {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(form)
-        }).then(resp => resp.json())
-          .then(data => newMarker(data))
+        }).then(res => res.json())
+        //   .then(data => newMarker(data))
+          .then(data => { //console.log(data.error)
+            if(data.error){
+                console.log(data)
+            } else {
+                newMarker(data)
+            }
+          })
     }
 
     function handleChange(e){
