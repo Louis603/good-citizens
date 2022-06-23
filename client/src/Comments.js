@@ -33,7 +33,13 @@ function Comments({user}) {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(form)
       }).then(resp => resp.json())
-        .then(data => setNewComment(data))
+        .then(data => {
+          if(data.error){
+            console.log("data")
+          }else{
+          setNewComment(data)
+          }
+        })
     }
  
 
@@ -48,9 +54,12 @@ function Comments({user}) {
     
   return (
     <div>
+      <img src={data.image} style={{height:"400px", marginLeft: "20%"}}></img>
+      <p>{data.description}</p>
         <h1>All Comments</h1>
         {mapData}
-        <h3>Add Comment</h3>
+        {user ? <h3>Add Comment</h3>:<h3>Sign in to add comment</h3>}
+        
         <form onSubmit={handleSubmit}>
           <label>
             <textarea rows="4" cols="50"

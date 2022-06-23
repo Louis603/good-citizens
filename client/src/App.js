@@ -19,7 +19,7 @@ function App() {
     longitude: -73.99283450881435,
     // width: "20vw",
     // height: "20vh",
-    zoom: 10
+    zoom: 12
   });
 
   // console.log(lng)
@@ -85,9 +85,30 @@ function App() {
   }
 
   return (
-    <div>
-      <Header user={user}/>
-      {user?<><h1>Hello {user.username}</h1>  <button onClick={handleLogout}>Logout</button></>:null}
+    // style={{display: "flex"}}
+    <div style={{backgroundColor: "#F7F5E6", fontFamily: "Roboto"}}>
+      <div>
+      <Header user={user} handleLogout={handleLogout}/>
+      {user?<h1 style={{marginLeft: "5px"}}> Hello {user.username}</h1>:<h1 style={{marginLeft: "5px"}}> Welcome</h1>}
+      </div>
+      <div style={{ display:"flex", marginLeft: "10px"}}>
+        <div style={{width: "600px"}}>
+      <Route exact path="/"> 
+        <Home /> </Route>
+      <Route path="/new_marker"> 
+        <NewMarker lng={lng} lat={lat} newMarker={newMarker} user={user}/> 
+      </Route>
+      <Route path="/markers/:id/comments">
+        <Comments user={user}/>
+      </Route>
+      <Route path="/signup">
+        <Signup setUser={setUser} />
+      </Route>
+      <Route path="/login">
+        <Login setUser={setUser}/>
+      </Route>
+      </div>
+      <div>
       <ReactMapGL 
       onClick={(e) => {
         setLng(e.lngLat.lng)
@@ -95,8 +116,9 @@ function App() {
         {...viewport}
         mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}
         // mapStyle="mapbox://styles/louisy603/cl4ihohvl007w14pf67sjqul1"
-        mapStyle="mapbox://styles/mapbox/streets-v9"
-        style={{width: 600, height: 400}}
+        // mapStyle="mapbox://styles/mapbox/streets-v9"
+        mapStyle="mapbox://styles/louisy603/cl4qhtyr9000l14mrcv0yzrjb"
+        style={{width: 1300, height: 700}}
         onMove={evt => setViewport(evt.viewState)}
         >
           {mapData.map(marks =>(
@@ -130,7 +152,7 @@ function App() {
               setSelectedMark(null);
             }}
           >
-            <div>
+            <div style={{width: "150px"}}>
               <h2>{selectedMark.name}</h2>
               <p>{selectedMark.description}</p>
               <Link to={`/markers/${id}/comments`}>
@@ -141,15 +163,18 @@ function App() {
                 Delete
               </button>
               
-              <img style={{height: "200px", width: "140px"}} src={selectedMark.image}></img>
+              <img style={{height: "200px", width: "140px", marginTop:"5px"}} src={selectedMark.image}></img>
               
             </div>
           </Popup>
           // console.log(selectedMark)
           ): null}
       </ReactMapGL>
+      </div>
+      
       {/* <Router> */}
-      <Route exact path="/"> 
+
+      {/* <Route exact path="/"> 
         <Home /> </Route>
       <Route path="/new_marker"> 
         <NewMarker lng={lng} lat={lat} newMarker={newMarker} user={user}/> 
@@ -162,7 +187,8 @@ function App() {
       </Route>
       <Route path="/login">
         <Login setUser={setUser}/>
-      </Route>
+      </Route> */}
+      </div>
     </div>
   );
 }
