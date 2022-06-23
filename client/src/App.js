@@ -37,8 +37,7 @@ function App() {
       if (response.ok) {
         response.json()
         .then((user) => setUser(user));
-      }
-    });
+      }});
   }, []);
 
   useEffect(() => {
@@ -51,10 +50,20 @@ function App() {
     setMapData([...mapData, data])
   }
 
-  function handleCommentClick(e){
+  function markerButton(e, marks){
     e.preventDefault()
-    setComments(selectedMark.id)
+    setId(marks.id)
+    // setSelectedMark(marks.id)          
+    fetch(`/markers/${marks.id}`)
+      .then(resp => resp.json())
+      .then((data) => setSelectedMark(data))
+      console.log(selectedMark)
   }
+
+  // function handleCommentClick(e){
+  //   e.preventDefault()
+  //   setComments(selectedMark.id)
+  // }
   
   function handleLogout(){
     fetch("/logout", {
@@ -63,7 +72,6 @@ function App() {
   }
 
   function handleDelete(){
-    // deleteId(id)
     fetch(`/markers/${id}`, {
       method: "DELETE" })
       // .then((res) => res.json())
@@ -76,12 +84,26 @@ function App() {
           console.log("no")
         }
       })
-      
   }
 
   function deleteId(deletedId){
     const updatedMap = mapData.filter(map => map.id !== deletedId)
     setMapData(updatedMap)
+  }
+
+  function handleLike(e, markId){
+    console.log(markId)
+    console.log(user.id)
+    const addLike = {
+      user_id: user.id,
+      marker_id: markId
+    }
+    fetch("/likes",{
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(addLike)
+    }).then(res => res.json())
+      .then(data => console.log(data))
   }
 
   return (
@@ -126,17 +148,7 @@ function App() {
             key={marks.id}
             longitude={marks.longitude} latitude={marks.latitude}
             >
-            <button className="pin"
-              onClick={e => {
-                e.preventDefault()
-                setId(marks.id)
-                // setSelectedMark(marks.id)
-                
-                fetch(`/markers/${marks.id}`)
-                .then(resp => resp.json())
-                .then((data) => setSelectedMark(data))
-                console.log(selectedMark)
-              }}>
+            <button className="pin" onClick={e => markerButton(e, marks)}>
               <img  src="./pin.png" />
             </button>
           </Marker>
@@ -148,10 +160,8 @@ function App() {
             // longitude={-73.99283450881435}
             latitude={selectedMark.latitude}
             longitude={selectedMark.longitude}
-            onClose={() => {
-              setSelectedMark(null);
-            }}
-          >
+            onClose={() => setSelectedMark(null)}>
+            
             <div style={{width: "150px"}}>
               <h2>{selectedMark.name}</h2>
               <p>{selectedMark.description}</p>
@@ -159,12 +169,12 @@ function App() {
                 <button>See More</button>
               </Link>
               
-              <button onClick={handleDelete}>
-                Delete
-              </button>
-              
+              <button onClick={handleDelete}>Delete</button>
+              {user?(
+                <button onClick={(e)=>handleLike(e,selectedMark.id)}>Like</button>
+              ): null }
+
               <img style={{height: "200px", width: "140px", marginTop:"5px"}} src={selectedMark.image}></img>
-              
             </div>
           </Popup>
           // console.log(selectedMark)
