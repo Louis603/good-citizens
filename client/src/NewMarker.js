@@ -25,6 +25,10 @@ function NewMarker({lng, lat, newMarker, user}) {
         // user_id: user.id
     })
 
+    useEffect(() => {
+        setForm({latitude: lat, longitude:lng})
+    },[lng, lat])
+
     // useEffect(() =>{
     //     setLongitude(lng)
     // },[longitude])
@@ -44,6 +48,13 @@ function NewMarker({lng, lat, newMarker, user}) {
                 setHandleError(data.error)
             } else {
                 newMarker(data)
+                setForm({
+                    name: "",
+                    description: "",
+                    image: "",
+                    longitude: "",
+                    latitude: ""
+                })
             }
           })
     }
@@ -65,8 +76,8 @@ function NewMarker({lng, lat, newMarker, user}) {
             <label style={forms}>Title<input style={input} type="text" name="name" value={form.name} onChange={handleChange}/></label>
             <label style={forms}>Description<input style={input} type="text" name="description" value={form.description} onChange={handleChange}/></label>
             <label style={forms}>Image<input style={input} type="text" name="image" value={form.image} onChange={handleChange}/></label>
-            <label style={forms}>Lng<input style={input} type="text" name="longitude" value={lng} onChange={handleChange}/></label>
-            <label style={forms}>Lat<input style={input} type="text" name="latitude" value={lat} onChange={handleChange}/></label>
+            <label style={forms}>Lng<input style={input} type="text" name="longitude" value={form.longitude} onChange={handleChange}/></label>
+            <label style={forms}>Lat<input style={input} type="text" name="latitude" value={form.latitude} onChange={handleChange}/></label>
             <button type="submit" >Submit</button>
         </fieldset>
     </form>

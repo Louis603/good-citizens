@@ -116,8 +116,8 @@ function App() {
         {...viewport}
         mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}
         // mapStyle="mapbox://styles/louisy603/cl4ihohvl007w14pf67sjqul1"
-        // mapStyle="mapbox://styles/mapbox/streets-v9"
-        mapStyle="mapbox://styles/louisy603/cl4qhtyr9000l14mrcv0yzrjb"
+        mapStyle="mapbox://styles/mapbox/streets-v9"
+        // mapStyle="mapbox://styles/louisy603/cl4qhtyr9000l14mrcv0yzrjb"
         style={{width: 1300, height: 700}}
         onMove={evt => setViewport(evt.viewState)}
         >
