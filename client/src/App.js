@@ -116,7 +116,8 @@ function App() {
       <div style={{ display:"flex", marginLeft: "10px"}}>
         <div style={{width: "600px"}}>
       <Route exact path="/"> 
-        <Home /> </Route>
+        <Home user={user}/> 
+      </Route>
       <Route path="/new_marker"> 
         <NewMarker lng={lng} lat={lat} newMarker={newMarker} user={user}/> 
       </Route>
