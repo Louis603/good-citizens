@@ -23,7 +23,7 @@ function App() {
     zoom: 12
   });
 
-  // console.log(lng)
+
   // console.log(lat)
   const [mapData, setMapData] = useState([])
   const [selectedMark, setSelectedMark] = useState(null)
