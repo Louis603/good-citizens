@@ -10,6 +10,7 @@ import Header from "./Header";
 import Login from "./Login";
 import Signup from "./Signup";
 import { Link } from 'react-router-dom'
+import Footer from "./Footer";
 
 function App() {
   const [lng, setLng] = useState()
@@ -29,6 +30,7 @@ function App() {
   const [comments, setComments] = useState(8)
   const [id, setId] = useState()
   const [user, setUser] = useState(null)
+  const [newLike, setNewLike] = useState({})
 
 
   useEffect(() => {
@@ -36,9 +38,11 @@ function App() {
     .then((response) => {
       if (response.ok) {
         response.json()
-        .then((user) => setUser(user));
+        .then((user) => {
+          setUser(user)
+          console.log("user check fetch")});
       }});
-  }, []);
+  }, [newLike]);
 
   useEffect(() => {
     fetch("/markers")
@@ -92,8 +96,8 @@ function App() {
   }
 
   function handleLike(e, markId){
-    console.log(markId)
-    console.log(user.id)
+    // console.log(markId)
+    // console.log(user.id)
     const addLike = {
       user_id: user.id,
       marker_id: markId
@@ -103,7 +107,7 @@ function App() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(addLike)
     }).then(res => res.json())
-      .then(data => console.log(data))
+      .then(data => setNewLike(data))
   }
 
   return (
@@ -116,7 +120,7 @@ function App() {
       <div style={{ display:"flex", marginLeft: "10px"}}>
         <div style={{width: "600px"}}>
       <Route exact path="/"> 
-        <Home user={user}/> 
+        <Home user={user} setNewLike={setNewLike}/> 
       </Route>
       <Route path="/new_marker"> 
         <NewMarker lng={lng} lat={lat} newMarker={newMarker} user={user}/> 
@@ -131,7 +135,7 @@ function App() {
         <Login setUser={setUser}/>
       </Route>
       </div>
-      <div>
+      <div >
       <ReactMapGL 
       onClick={(e) => {
         setLng(e.lngLat.lng)
@@ -181,25 +185,11 @@ function App() {
           // console.log(selectedMark)
           ): null}
       </ReactMapGL>
+      
       </div>
       
-      {/* <Router> */}
-
-      {/* <Route exact path="/"> 
-        <Home /> </Route>
-      <Route path="/new_marker"> 
-        <NewMarker lng={lng} lat={lat} newMarker={newMarker} user={user}/> 
-      </Route>
-      <Route path="/markers/:id/comments">
-        <Comments user={user}/>
-      </Route>
-      <Route path="/signup">
-        <Signup setUser={setUser} />
-      </Route>
-      <Route path="/login">
-        <Login setUser={setUser}/>
-      </Route> */}
       </div>
+      <Footer />
     </div>
   );
 }

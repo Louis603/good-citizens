@@ -4,4 +4,5 @@ class Like < ApplicationRecord
 
     validates :user, presence: true
     validates :marker, presence: true
+    validates :user_id, uniqueness: {scope: :marker_id}
 end
