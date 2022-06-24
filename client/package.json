@@ -79,19 +79,9 @@
   "browserslist": {
   
     
-  "production": [
-  
-    
-    
-  ">0.2%",
-  
-    
-    
-  "not dead",
-  
-    
-    
-  "not op_mini all"
+    "production": [
+      "defaults",
+      "not ie 11"
   
     
   ],
