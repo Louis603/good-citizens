@@ -9,6 +9,8 @@ Things you may want to cover:
     run rails s
     cd into client and run "npm start"
 
+    - npm install react-icons for react icons "https://react-icons.github.io/react-icons"
+
 * Ruby version
 
 * System dependencies
