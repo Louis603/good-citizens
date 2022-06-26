@@ -1,11 +1,15 @@
 import React from 'react'
 import { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom"
 
 function Signup({setUser}) {
+  const [error, setError] =useState()
   const [form, setForm] = useState({
     username:"",
     password:""
   })
+
+  let history = useHistory()
 
   function handleChange(e){
     setForm({...form, [e.target.name]:e.target.value})
@@ -17,13 +21,21 @@ function Signup({setUser}) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(form)
-  }).then(resp => resp.json())
-    .then(data => setUser(data))
-
+  }).then(res => {
+    if(res.ok){
+      res.json()
+      .then(data => setUser(data))
+      history.push("/")
+    }else {
+      res.json()
+      .then(data => setError(Object.values(data).join()))
+    }
+  })
   }
 
   return (
-    <div>Signup
+    <div>
+      <h3>Signup</h3>
       <form onSubmit={handleSubmit}>
         <label>Username
           <input type="text" name="username" onChange={handleChange}/>
@@ -33,6 +45,7 @@ function Signup({setUser}) {
         </label>
         <button type="submit" >Submit</button>
       </form>
+      {error? <div>{error}</div> : null}
     </div>
   )
 }

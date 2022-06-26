@@ -37,6 +37,6 @@ class MarkersController < ApplicationController
     end
 
     def authorize
-        render json: {error: "Not authorized" }, status: :unauthorized unless session.include? :current_user
+        render json: {error: "Please sign in to add a moment" }, status: :unauthorized unless session.include? :current_user
     end
 end

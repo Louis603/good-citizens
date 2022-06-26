@@ -1,8 +1,12 @@
 import React, {useState} from 'react'
+import { useHistory } from "react-router-dom"
 
-function Login({setUser}) {
+function Login({setUser, setNewLike}) {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const [error, setError] = useState()
+
+    let history = useHistory()
 
     function onSubmit(e){
         e.preventDefault()
@@ -21,12 +25,14 @@ function Login({setUser}) {
             res.json()
             .then(user=>{
               setUser(user)
+              // setNewLike({})
+              history.push('/')
             //   setIsAuthenticated(true)
             })
             
           } else {
             res.json()
-            .then(json => console.log(json.error))
+            .then(json => setError(json.error))
           }
         })
     }
@@ -47,6 +53,7 @@ function Login({setUser}) {
        
         <input type="submit" value="Login!" />
       </form>
+      {error? <div>{error}</div>:null}
       </div>
   )
 }

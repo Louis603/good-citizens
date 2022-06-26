@@ -7,8 +7,8 @@ function Footer() {
     <a href="https://github.com/Louis603"><AiFillGithub style={{color: 'white', fontSize: '30px'}} /></a>
     <a href="https://github.com/Louis603" style={{color: 'white', fontSize: '22px', textDecoration: "none"}}>GitHub</a>
     <div style={{marginBottom: "3px"}}>
-    <a href="https://github.com/Louis603" style={{marginBottom:"20px"}}><AiOutlineLinkedin style={{color: 'white', fontSize: '28px'}}/></a>
-    <a href="https://github.com/Louis603" style={{color: 'white', fontSize: '22px', textDecoration: "none"}}>LinkedIn</a>
+    <a href="https://www.linkedin.com/in/louis-yan-se/" style={{marginBottom:"20px"}}><AiOutlineLinkedin style={{color: 'white', fontSize: '28px'}}/></a>
+    <a href="https://www.linkedin.com/in/louis-yan-se/" style={{color: 'white', fontSize: '22px', textDecoration: "none"}}>LinkedIn</a>
     </div>
     </div>
   )

@@ -27,7 +27,6 @@ function App() {
   // console.log(lat)
   const [mapData, setMapData] = useState([])
   const [selectedMark, setSelectedMark] = useState(null)
-  const [comments, setComments] = useState(8)
   const [id, setId] = useState()
   const [user, setUser] = useState(null)
   const [newLike, setNewLike] = useState({})
@@ -132,7 +131,7 @@ function App() {
         <Signup setUser={setUser} />
       </Route>
       <Route path="/login">
-        <Login setUser={setUser}/>
+        <Login setUser={setUser} setNewLike={setNewLike}/>
       </Route>
       </div>
       <div >
@@ -154,7 +153,8 @@ function App() {
             longitude={marks.longitude} latitude={marks.latitude}
             >
             <button className="pin" onClick={e => markerButton(e, marks)}>
-              <img  src="./pin.png" />
+              {/* <img  src="./pin.png" /> */}
+              <img  src="./map-marker-icon.png" />
             </button>
           </Marker>
           ))}

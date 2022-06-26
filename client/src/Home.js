@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 function Home({user, setNewLike}) {
+  console.log(user)
 
   function handleDelete(like){
     setNewLike(like)
@@ -11,7 +12,7 @@ function Home({user, setNewLike}) {
   }
   
   return (
-    <div style={{display: "grid", width: "600px", height: "700px",
+    <div style={{display: "grid", width: "590px", height: "700px",
     gridTemplateColumns: "repeat(3, 1fr)", gap: "30px", overflowY: "auto"
     }}>
       {user ? ( 
@@ -23,7 +24,7 @@ function Home({user, setNewLike}) {
               <Link to={`/markers/${like.marker.id}/comments`}>
                 <button>See More</button>
               </Link>
-              <button onClick={() =>handleDelete(like)}>Delete</button>
+              <button onClick={() =>handleDelete(like)}>Unlike</button>
             </div>
           )
         })

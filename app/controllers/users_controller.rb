@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+    rescue_from ActiveRecord::RecordInvalid, with: :unprocessable
 
     def index
         users = User.all
@@ -26,5 +27,9 @@ class UsersController < ApplicationController
 
     def user_params
         params.permit(:username, :password)
+    end
+
+    def unprocessable(object)
+        render json: {error: object.record.errors.full_messages }, status: :unprocessable_entity
     end
 end
