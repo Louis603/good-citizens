@@ -29,7 +29,13 @@ function Home({user, setNewLike}) {
           )
         })
       )
-       : null }
+       : (
+        <div style={{width: "500px"}}>
+          <p>Welcome to Good Citizens where you can stop looking at the negatives of a city and focus on the positive!</p>
+          <p>Place markers on the map and show other users cool things you see or even free stuff!</p>
+          <p>Keep it friendly and respectful in the comments</p>
+        </div>
+       ) }
     </div>
   )
 }
