@@ -53,7 +53,8 @@ function Comments({user}) {
     
   return (
     <div style={{overflowY: "auto", width: "590px", height: "700px"}}>
-      <img src={data.image} style={{height:"400px", marginLeft: "20%"}}></img>
+      <img src={data.image} style={{height:"400px", marginLeft: "8%"}}></img>
+      <p><b>{data.name}</b></p>
       <p>{data.description}</p>
         <h1>All Comments</h1>
         {mapData}

@@ -167,7 +167,7 @@ function App() {
             longitude={selectedMark.longitude}
             onClose={() => setSelectedMark(null)}>
             
-            <div style={{width: "150px"}}>
+            <div style={{width: "auto", height: "auto"}}>
               <h2>{selectedMark.name}</h2>
               <p>{selectedMark.description}</p>
               <Link to={`/markers/${id}/comments`}>
@@ -182,7 +182,7 @@ function App() {
                 <button onClick={(e)=>handleLike(e,selectedMark.id)}>Like</button>
               ): null }
 
-              <img style={{height: "200px", width: "140px", marginTop:"5px"}} src={selectedMark.image}></img>
+              <img style={{height: "150px", width: "auto", marginTop:"5px"}} src={selectedMark.image}></img>
             </div>
           </Popup>
           // console.log(selectedMark)
