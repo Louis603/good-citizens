@@ -16,8 +16,10 @@ function App() {
   const [lng, setLng] = useState()
   const [lat, setLat] = useState()
   const [viewport, setViewport] = useState({
-    latitude: 40.715553207343646,
-    longitude: -73.99283450881435,
+    latitude: 40.71096469984769,
+    longitude: -73.96734916991853,
+    // width: "20vw",
+    // height: "20vh",
     zoom: 12
   });
 
@@ -25,7 +27,6 @@ function App() {
   // console.log(lat)
   const [mapData, setMapData] = useState([])
   const [selectedMark, setSelectedMark] = useState(null)
-  const [comments, setComments] = useState(8)
   const [id, setId] = useState()
   const [user, setUser] = useState(null)
   const [newLike, setNewLike] = useState({})
@@ -130,7 +131,7 @@ function App() {
         <Signup setUser={setUser} />
       </Route>
       <Route path="/login">
-        <Login setUser={setUser}/>
+        <Login setUser={setUser} setNewLike={setNewLike}/>
       </Route>
       </div>
       <div >
@@ -141,8 +142,8 @@ function App() {
         {...viewport}
         mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}
         // mapStyle="mapbox://styles/louisy603/cl4ihohvl007w14pf67sjqul1"
-        mapStyle="mapbox://styles/mapbox/streets-v9"
-        // mapStyle="mapbox://styles/louisy603/cl4qhtyr9000l14mrcv0yzrjb"
+        // mapStyle="mapbox://styles/mapbox/streets-v9"
+        mapStyle="mapbox://styles/louisy603/cl4qhtyr9000l14mrcv0yzrjb"
         style={{width: 1300, height: 700}}
         onMove={evt => setViewport(evt.viewState)}
         >
@@ -152,7 +153,8 @@ function App() {
             longitude={marks.longitude} latitude={marks.latitude}
             >
             <button className="pin" onClick={e => markerButton(e, marks)}>
-              <img  src="./pin.png" />
+              {/* <img  src="./pin.png" /> */}
+              <img  src="./map-marker-icon.png" />
             </button>
           </Marker>
           ))}
@@ -171,8 +173,11 @@ function App() {
               <Link to={`/markers/${id}/comments`}>
                 <button>See More</button>
               </Link>
+
+              {user?(
+                <button onClick={handleDelete}>Delete</button>
+              ): null }
               
-              <button onClick={handleDelete}>Delete</button>
               {user?(
                 <button onClick={(e)=>handleLike(e,selectedMark.id)}>Like</button>
               ): null }

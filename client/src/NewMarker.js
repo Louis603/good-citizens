@@ -48,6 +48,7 @@ function NewMarker({lng, lat, newMarker, user}) {
                 setHandleError(data.error)
             } else {
                 newMarker(data)
+                setHandleError()
                 setForm({
                     name: "",
                     description: "",
@@ -68,16 +69,18 @@ function NewMarker({lng, lat, newMarker, user}) {
 
   return (
     <div>
-        {user ? <h3>Create a new moment</h3> :<h3>Sign in to add a moment</h3>}
+        {user ? <h3>Create a new marker</h3> :<h3>Sign in to add a moment</h3>}
         <h4>{handleError}</h4>
+
+    <p>To add a new marker click on the map to update Longitude/Latitude and then fill out the rest</p>
         
     <form onSubmit={(e) => handleSubmit(e)} >
         <fieldset style={{border: "0"}}>
             <label style={forms}>Title<input style={input} type="text" name="name" value={form.name} onChange={handleChange}/></label>
             <label style={forms}>Description<input style={input} type="text" name="description" value={form.description} onChange={handleChange}/></label>
             <label style={forms}>Image<input style={input} type="text" name="image" value={form.image} onChange={handleChange}/></label>
-            <label style={forms}>Lng<input style={input} type="text" name="longitude" value={form.longitude} onChange={handleChange}/></label>
-            <label style={forms}>Lat<input style={input} type="text" name="latitude" value={form.latitude} onChange={handleChange}/></label>
+            <label style={forms}>Longitude<input style={input} type="text" name="longitude" value={form.longitude} onChange={handleChange}/></label>
+            <label style={forms}>Latitude<input style={input} type="text" name="latitude" value={form.latitude} onChange={handleChange}/></label>
             <button type="submit" >Submit</button>
         </fieldset>
     </form>

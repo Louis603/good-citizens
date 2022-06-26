@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 function Home({user, setNewLike}) {
+  console.log(user)
 
   function handleDelete(like){
     setNewLike(like)
@@ -11,7 +12,7 @@ function Home({user, setNewLike}) {
   }
   
   return (
-    <div style={{display: "grid", width: "600px", height: "700px",
+    <div style={{display: "grid", width: "590px", height: "700px",
     gridTemplateColumns: "repeat(3, 1fr)", gap: "30px", overflowY: "auto"
     }}>
       {user ? ( 
@@ -23,12 +24,18 @@ function Home({user, setNewLike}) {
               <Link to={`/markers/${like.marker.id}/comments`}>
                 <button>See More</button>
               </Link>
-              <button onClick={() =>handleDelete(like)}>Delete</button>
+              <button onClick={() =>handleDelete(like)}>Unlike</button>
             </div>
           )
         })
       )
-       : null }
+       : (
+        <div style={{width: "500px"}}>
+          <p>Welcome to Good Citizens where you can stop looking at the negatives of a city and focus on the positive!</p>
+          <p>Place markers on the map and show other users cool things you see or even free stuff!</p>
+          <p>Keep it friendly and respectful in the comments</p>
+        </div>
+       ) }
     </div>
   )
 }

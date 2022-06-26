@@ -41,19 +41,18 @@ function Comments({user}) {
           }
         })
     }
- 
-
-
-    // console.log(data)
 
     const mapData = data.comments.map(com => {
        return (
-        <p><b>{com.name}</b>: {com.comment}</p>
+        <div style={{borderBottom: "1px solid black", width: "65%", paddingBottom: "10px"}}>
+          <p><b>{com.name}</b>: </p>
+          <p>{com.comment}</p>
+        </div>
        )
     })
     
   return (
-    <div>
+    <div style={{overflowY: "auto", width: "590px", height: "700px"}}>
       <img src={data.image} style={{height:"400px", marginLeft: "20%"}}></img>
       <p>{data.description}</p>
         <h1>All Comments</h1>

@@ -1,5 +1,5 @@
 class MarkersController < ApplicationController
-# rescue_from ActiveRecord::RecordInvalid, with: :invalid
+    rescue_from ActiveRecord::RecordInvalid, with: :invalid
 
     before_action :authorize
     skip_before_action :authorize, only: [:index,:show]
@@ -33,10 +33,10 @@ class MarkersController < ApplicationController
     end
 
     def invalid
-        render json: { error: "Unprocessable entity" }, status: :unprocessable_entity
+        render json: { error: "Title/Image/Longitude/Latitude must be filled in" }, status: :unprocessable_entity
     end
 
     def authorize
-        render json: {error: "Not authorized" }, status: :unauthorized unless session.include? :current_user
+        render json: {error: "Please sign in to add a moment" }, status: :unauthorized unless session.include? :current_user
     end
 end
