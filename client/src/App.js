@@ -39,7 +39,8 @@ function App() {
         response.json()
         .then((user) => {
           setUser(user)
-          console.log("user check fetch")});
+          // console.log("user check fetch")
+        });
       }});
   }, [newLike]);
 
@@ -60,13 +61,8 @@ function App() {
     fetch(`/markers/${marks.id}`)
       .then(resp => resp.json())
       .then((data) => setSelectedMark(data))
-      console.log(selectedMark)
+      // console.log(selectedMark)
   }
-
-  // function handleCommentClick(e){
-  //   e.preventDefault()
-  //   setComments(selectedMark.id)
-  // }
   
   function handleLogout(){
     fetch("/logout", {
@@ -95,8 +91,6 @@ function App() {
   }
 
   function handleLike(e, markId){
-    // console.log(markId)
-    // console.log(user.id)
     const addLike = {
       user_id: user.id,
       marker_id: markId
@@ -185,7 +179,6 @@ function App() {
               <img style={{height: "150px", width: "auto", marginTop:"5px"}} src={selectedMark.image}></img>
             </div>
           </Popup>
-          // console.log(selectedMark)
           ): null}
       </ReactMapGL>
       
@@ -197,54 +190,4 @@ function App() {
   );
 }
 
-
-
-
-// import React, { useState, useEffect } from "react";
-// import Map from 'react-map-gl';
-// import 'mapbox-gl/dist/mapbox-gl.css';
-
-// function App() {
-//   return (
-//     <Map
-//       initialViewState={{
-//         longitude: -73.99283450881435,
-//         latitude: 40.715553207343646,
-//         zoom: 10
-//       }}
-//       style={{width: 600, height: 400}}
-//       mapStyle="mapbox://styles/louisy603/cl4ihohvl007w14pf67sjqul1"
-//     />
-//   );
-// }
-
-
-
-
-{/* <Map
-          onClick={e => {console.log(e.lngLat)}}
-          mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}
-          initialViewState={{
-            longitude: -73.99283450881435,
-            latitude: 40.715553207343646,
-            zoom: 12
-          }}
-          style={{width: 600, height: 400}}
-          mapStyle="mapbox://styles/mapbox/streets-v9"
-          {...mapMarkers.map(marker => (
-            <Marker
-                key={(marker.id)}
-                latitude={40.715553207343646}
-                longitude={-73.99283450881435}
-                latitude={marker.coordinates[1]}
-                longitude={marker.coordinates[0]}
-                
-            >
-              <button>
-                <img style={{width: "20px", height: "20px"}} src="logo.svg"  />
-              </button>
-            </Marker>
-          ))}
-          
-        /> */}
 export default App;

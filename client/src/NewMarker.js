@@ -8,13 +8,11 @@ let forms = {
 
 let input = {
     float: "left",
-    // paddingTop: "5px"
 }
 
 
 function NewMarker({lng, lat, newMarker, user}) {
-    // console.log(user.id)
-    // const [longitude, setLongitude] = useState()
+
     const [handleError, setHandleError] = useState()
     const [form, setForm] = useState ({
         name: "",
@@ -28,11 +26,6 @@ function NewMarker({lng, lat, newMarker, user}) {
     useEffect(() => {
         setForm({latitude: lat, longitude:lng})
     },[lng, lat])
-
-    // useEffect(() =>{
-    //     setLongitude(lng)
-    // },[longitude])
-    // console.log(longitude)
     
     
     function handleSubmit(e){
@@ -42,8 +35,7 @@ function NewMarker({lng, lat, newMarker, user}) {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(form)
         }).then(res => res.json())
-        //   .then(data => newMarker(data))
-          .then(data => { //console.log(data.error)
+          .then(data => { 
             if(data.error){
                 setHandleError(data.error)
             } else {
@@ -62,7 +54,6 @@ function NewMarker({lng, lat, newMarker, user}) {
 
     function handleChange(e){
         setForm({...form, [e.target.name]:e.target.value})
-        // console.log(form)
     }
 
 
