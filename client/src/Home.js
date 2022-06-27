@@ -13,7 +13,7 @@ function Home({user, setNewLike}) {
   
   return (
     <div style={{display: "grid", width: "590px", height: "700px",
-    gridTemplateColumns: "repeat(3, 1fr)", gap: "30px", overflowY: "auto"
+    gridTemplateColumns: "repeat(2, 1fr)", gap: "30px", overflowY: "auto"
     }}>
       {user ? ( 
         user.likes.map(like => {

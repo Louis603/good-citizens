@@ -62,7 +62,7 @@ function NewMarker({lng, lat, newMarker, user}) {
 
     function handleChange(e){
         setForm({...form, [e.target.name]:e.target.value})
-        console.log(form)
+        // console.log(form)
     }
 
 
