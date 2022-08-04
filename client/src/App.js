@@ -12,6 +12,8 @@ import Signup from "./Signup";
 import { Link } from 'react-router-dom'
 import Footer from "./Footer";
 
+//////ACER LAPTOP GITHUB TEST
+
 function App() {
   const [lng, setLng] = useState()
   const [lat, setLat] = useState()
